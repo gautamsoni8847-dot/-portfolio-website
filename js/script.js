@@ -1,8 +1,8 @@
 /* =====================================================================
    Goutam Soni — Portfolio Scripts
    Vanilla JS only. Handles: theme toggle (persisted), mobile nav,
-   scroll-reveal animation, hero terminal typing effect, and basic
-   client-side contact form validation.
+   scroll-reveal animation, hero terminal typing effect, client-side
+   contact form validation, and a cursor-tracking spotlight on cards.
    ===================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -137,6 +137,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
       showStatus(`Thanks, ${name.value.trim()}! Your message is ready to send — connect a backend or form service to deliver it.`, true);
       form.reset();
+    });
+  }
+
+  /* -------------------------------------------------------------
+     6. SPOTLIGHT HOVER — soft glow that follows the cursor on cards.
+        Applies a data-spotlight attribute (used by CSS) to existing
+        card elements, so no HTML edits are required.
+     ------------------------------------------------------------- */
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion) {
+    const spotlightSelectors = '.info-card, .project-card, .skill-chip, .contact-form, .contact-aside, .terminal';
+    document.querySelectorAll(spotlightSelectors).forEach((el) => {
+      el.setAttribute('data-spotlight', '');
+      el.addEventListener('pointermove', (event) => {
+        const rect = el.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        el.style.setProperty('--spot-x', `${x}%`);
+        el.style.setProperty('--spot-y', `${y}%`);
+      });
     });
   }
 
