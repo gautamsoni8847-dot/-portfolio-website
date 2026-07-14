@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="profileTitle">
+  <title id="profileTitle">Placeholder profile portrait of Goutam Soni</title>
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#171B24"/>
+      <stop offset="100%" stop-color="#0F1115"/>
+    </linearGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5EEAD4"/>
+      <stop offset="100%" stop-color="#F2C94C"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgGrad)"/>
+  <circle cx="200" cy="200" r="150" fill="none" stroke="url(#ringGrad)" stroke-width="3" stroke-dasharray="6 10" opacity="0.6"/>
+  <circle cx="200" cy="160" r="62" fill="#232838"/>
+  <path d="M90 340 C90 255 130 225 200 225 C270 225 310 255 310 340 Z" fill="#232838"/>
+  <text x="200" y="220" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="15" fill="#5EEAD4">GS</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="t1">
+<title id="t1">Placeholder thumbnail for Smart Expense AI Dashboard project</title>
+<rect width="480" height="300" fill="#171B24"/>
+<rect x="30" y="40" width="420" height="220" rx="10" fill="#1E2330" stroke="#2B3242"/>
+<polyline points="55,220 120,160 175,190 235,110 300,140 360,80 420,120" fill="none" stroke="#5EEAD4" stroke-width="3"/>
+<circle cx="420" cy="120" r="5" fill="#F2C94C"/>
+<rect x="55" y="230" width="60" height="8" rx="4" fill="#2B3242"/>
+<rect x="125" y="230" width="90" height="8" rx="4" fill="#2B3242"/>
+<text x="55" y="70" font-family="JetBrains Mono, monospace" font-size="14" fill="#8B93A7">expense-ai / dashboard.py</text>
+</svg>

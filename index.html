@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>Goutam Soni | B.Tech CSE Student &amp; Aspiring Software Developer</title>
+  <meta name="description" content="Portfolio website of Goutam Soni, B.Tech CSE Student and aspiring software developer.">
+  <meta name="keywords" content="Portfolio, Web Developer, CSE Student, Java, DSA, HTML, CSS, JavaScript">
+  <meta name="author" content="Goutam Soni">
+  <link rel="canonical" href="index.html">
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:title" content="Goutam Soni | B.Tech CSE Student & Aspiring Software Developer">
+  <meta property="og:description" content="Portfolio website of Goutam Soni, B.Tech CSE Student and aspiring software developer.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- =================== HEADER / NAVIGATION =================== -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="logo" aria-label="Goutam Soni, home">
+        goutam<span class="cursor" aria-hidden="true"></span>
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Toggle navigation menu">
+        ☰
+      </button>
+
+      <nav id="primary-navigation" class="nav-links" aria-label="Primary">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark and light theme">
+          <span class="icon" aria-hidden="true">🌙</span><span class="label">Dark</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- =================== HERO =================== -->
+    <section class="hero">
+      <div class="container">
+
+        <div class="hero-copy">
+          <img src="images/profile.svg" alt="Placeholder portrait illustration of Goutam Soni" width="96" height="96" class="profile-frame">
+          <p class="eyebrow">portfolio.init()</p>
+          <h1>Goutam Soni</h1>
+          <p class="tagline">B.Tech CSE Student | Aspiring Software Developer | Learning Web Development and DSA</p>
+          <p class="intro">
+            I'm a Computer Science undergraduate at ITER, SOA University, building a strong
+            foundation in data structures, algorithms, and full-stack development. I enjoy
+            turning ideas into working software — from AI-assisted tools to systems that
+            solve real, everyday problems — and I'm currently sharpening my skills in
+            Java, Python, and modern web technologies.
+          </p>
+
+          <div class="hero-actions">
+            <a href="projects.html" class="btn btn-primary">View Projects</a>
+            <a href="contact.html" class="btn btn-secondary">Contact Me</a>
+          </div>
+        </div>
+
+        <!-- Signature element: a mock terminal that types out an intro,
+             reinforcing the "developer" identity at the heart of the page -->
+        <div class="terminal" aria-hidden="true">
+          <div class="terminal-bar">
+            <span></span><span></span><span></span>
+            <span class="terminal-title">goutam@portfolio: ~</span>
+          </div>
+          <div class="terminal-body">
+            <p class="line"><span class="prompt">$</span><span class="out">whoami</span></p>
+            <p class="line out">Goutam Soni</p>
+            <p class="line"><span class="prompt">$</span><span class="out">cat role.txt</span></p>
+            <p class="line out">B.Tech CSE Student, SOA University</p>
+            <p class="line"><span class="prompt">$</span><span class="out">status --current</span></p>
+            <p class="line out" data-typing="Learning DSA, building projects, shipping code."></p>
+            <p class="line"><span class="prompt">$</span><span class="caret"></span></p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =================== QUICK HIGHLIGHTS =================== -->
+    <section class="section section-alt reveal" aria-labelledby="highlights-heading">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">what I'm building</p>
+          <h2 id="highlights-heading">A snapshot of my work so far</h2>
+          <p>A quick look at where my curiosity currently lives — machine learning powered
+            tools, systems that help in emergencies, and steady daily practice with
+            algorithms.</p>
+        </div>
+
+        <div class="about-grid">
+          <article class="info-card">
+            <h3>Full-stack &amp; ML</h3>
+            <p>Building an AI-powered expense manager with Flask, SQLite, and scikit-learn —
+              combining backend engineering with practical machine learning.</p>
+          </article>
+          <article class="info-card">
+            <h3>Problem solving</h3>
+            <p>Working steadily through core Data Structures and Algorithms to build strong
+              fundamentals for technical interviews and real-world engineering.</p>
+          </article>
+          <article class="info-card">
+            <h3>Systems that matter</h3>
+            <p>Designing a smart ambulance tracking concept aimed at clearing traffic faster
+              for emergency vehicles.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =================== FOOTER =================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year">2026</span> Goutam Soni. Built with HTML, CSS &amp; JavaScript.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

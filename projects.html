@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Projects | Goutam Soni</title>
+  <meta name="description" content="Explore projects by Goutam Soni, including a Smart Expense AI Dashboard, an Ambulance Tracking System, and a DSA Practice Tracker.">
+  <meta name="keywords" content="Portfolio, Web Developer, CSE Student, Java, DSA, HTML, CSS, JavaScript">
+  <meta name="author" content="Goutam Soni">
+  <link rel="canonical" href="projects.html">
+
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="logo" aria-label="Goutam Soni, home">
+        goutam<span class="cursor" aria-hidden="true"></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Toggle navigation menu">☰</button>
+      <nav id="primary-navigation" class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="contact.html">Contact</a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark and light theme">
+          <span class="icon" aria-hidden="true">🌙</span><span class="label">Dark</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">projects/</p>
+          <h1>Projects</h1>
+          <p>A selection of things I've built while learning full-stack development, applied
+            machine learning, and problem-solving.</p>
+        </div>
+
+        <div class="project-grid">
+
+          <!-- Project 1 -->
+          <article class="project-card reveal">
+            <img src="images/project-expense.svg" alt="Placeholder dashboard preview for the Smart Expense AI Dashboard project" class="thumb" loading="lazy">
+            <div class="card-body">
+              <h2>Smart Expense AI Dashboard</h2>
+              <p>A full-stack expense manager that automatically categorises spending, forecasts
+                future expenses, and flags unusual transactions using machine learning models.</p>
+              <ul class="tech-list" aria-label="Technologies used">
+                <li>Flask</li><li>SQLite</li><li>scikit-learn</li><li>JWT Auth</li><li>JavaScript</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://github.com/" class="btn btn-secondary" aria-label="View Smart Expense AI Dashboard code on GitHub">GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card reveal">
+            <img src="images/project-ambulance.svg" alt="Placeholder route map preview for the Smart Ambulance Tracking and Traffic Clearance System project" class="thumb" loading="lazy">
+            <div class="card-body">
+              <h2>Smart Ambulance Tracking &amp; Traffic Clearance System</h2>
+              <p>A concept system that tracks ambulance location in real time and coordinates
+                with traffic signals to clear a faster path during emergencies.</p>
+              <ul class="tech-list" aria-label="Technologies used">
+                <li>JavaScript</li><li>Maps API</li><li>Node.js</li><li>Real-time Data</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://github.com/" class="btn btn-secondary" aria-label="View Smart Ambulance Tracking System code on GitHub">GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card reveal">
+            <img src="images/project-portfolio.svg" alt="Placeholder layout preview for the Personal Portfolio Website project" class="thumb" loading="lazy">
+            <div class="card-body">
+              <h2>Personal Portfolio Website</h2>
+              <p>This very website — a semantic, accessible, and responsive multi-page portfolio
+                built from scratch with HTML5, CSS3, and vanilla JavaScript.</p>
+              <ul class="tech-list" aria-label="Technologies used">
+                <li>HTML5</li><li>CSS3</li><li>JavaScript</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://github.com/" class="btn btn-secondary" aria-label="View Personal Portfolio Website code on GitHub">GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card reveal">
+            <img src="images/project-dsa.svg" alt="Placeholder tree diagram preview for the DSA Practice Tracker project" class="thumb" loading="lazy">
+            <div class="card-body">
+              <h2>DSA Practice Tracker</h2>
+              <p>A lightweight tracker for logging Data Structures and Algorithms practice —
+                organised by topic, difficulty, and revision status.</p>
+              <ul class="tech-list" aria-label="Technologies used">
+                <li>Java</li><li>HTML</li><li>CSS</li><li>JavaScript</li>
+              </ul>
+              <div class="card-footer">
+                <a href="https://github.com/" class="btn btn-secondary" aria-label="View DSA Practice Tracker code on GitHub">GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year">2026</span> Goutam Soni. Built with HTML, CSS &amp; JavaScript.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

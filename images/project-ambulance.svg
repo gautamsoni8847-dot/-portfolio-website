@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="t2">
+<title id="t2">Placeholder thumbnail for Smart Ambulance Tracking and Traffic Clearance System project</title>
+<rect width="480" height="300" fill="#171B24"/>
+<rect x="30" y="40" width="420" height="220" rx="10" fill="#1E2330" stroke="#2B3242"/>
+<path d="M70 200 L410 200" stroke="#2B3242" stroke-width="10"/>
+<path d="M70 200 L410 200" stroke="#F2C94C" stroke-width="2" stroke-dasharray="10 8"/>
+<circle cx="150" cy="200" r="10" fill="#5EEAD4"/>
+<circle cx="330" cy="200" r="10" fill="#5EEAD4"/>
+<rect x="200" y="170" width="60" height="30" rx="4" fill="#5EEAD4"/>
+<rect x="205" y="150" width="20" height="20" fill="#5EEAD4"/>
+<text x="55" y="70" font-family="JetBrains Mono, monospace" font-size="14" fill="#8B93A7">ambulance-track / route.js</text>
+</svg>

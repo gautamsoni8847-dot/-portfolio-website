@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="t4">
+<title id="t4">Placeholder thumbnail for DSA Practice Tracker project</title>
+<rect width="480" height="300" fill="#171B24"/>
+<rect x="30" y="40" width="420" height="220" rx="10" fill="#1E2330" stroke="#2B3242"/>
+<circle cx="240" cy="90" r="16" fill="#5EEAD4"/>
+<circle cx="180" cy="150" r="16" fill="#2B3242" stroke="#5EEAD4"/>
+<circle cx="300" cy="150" r="16" fill="#2B3242" stroke="#5EEAD4"/>
+<circle cx="150" cy="210" r="16" fill="#2B3242" stroke="#F2C94C"/>
+<circle cx="210" cy="210" r="16" fill="#2B3242" stroke="#F2C94C"/>
+<line x1="240" y1="90" x2="180" y2="150" stroke="#5EEAD4" stroke-width="2"/>
+<line x1="240" y1="90" x2="300" y2="150" stroke="#5EEAD4" stroke-width="2"/>
+<line x1="180" y1="150" x2="150" y2="210" stroke="#F2C94C" stroke-width="2"/>
+<line x1="180" y1="150" x2="210" y2="210" stroke="#F2C94C" stroke-width="2"/>
+<text x="55" y="70" font-family="JetBrains Mono, monospace" font-size="14" fill="#8B93A7">dsa-tracker / tree.cpp</text>
+</svg>

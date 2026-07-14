@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>About | Goutam Soni</title>
+  <meta name="description" content="Learn about Goutam Soni's education at ITER SOA University, technical skills, and career goals as an aspiring software developer.">
+  <meta name="keywords" content="Portfolio, Web Developer, CSE Student, Java, DSA, HTML, CSS, JavaScript">
+  <meta name="author" content="Goutam Soni">
+  <link rel="canonical" href="about.html">
+
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="logo" aria-label="Goutam Soni, home">
+        goutam<span class="cursor" aria-hidden="true"></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation" aria-label="Toggle navigation menu">☰</button>
+      <nav id="primary-navigation" class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark and light theme">
+          <span class="icon" aria-hidden="true">🌙</span><span class="label">Dark</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">about.md</p>
+          <h1>About Me</h1>
+          <p>A little more on where I've studied, what I've learned to use, and where I'm
+            headed next.</p>
+        </div>
+
+        <!-- ============ EDUCATION ============ -->
+        <div class="about-grid reveal" aria-labelledby="education-heading">
+          <article class="info-card">
+            <h2 id="education-heading" style="font-size:1.15rem;">Education</h2>
+            <dl>
+              <dt>Degree</dt>
+              <dd>B.Tech in Computer Science Engineering</dd>
+              <dt>Institution</dt>
+              <dd>ITER, SOA University, Bhubaneswar, Odisha</dd>
+              <dt>CGPA</dt>
+              <dd>8.7</dd>
+              <dt>Batch</dt>
+              <dd>2024 – 2028</dd>
+            </dl>
+          </article>
+
+          <article class="info-card">
+            <h2 style="font-size:1.15rem;">Career Goals &amp; Interests</h2>
+            <ul class="goals-list">
+              <li><span class="marker" aria-hidden="true">-></span> Build strong fundamentals in Data Structures and Algorithms for
+                technical interviews and problem-solving.</li>
+              <li><span class="marker" aria-hidden="true">-></span> Grow as a full-stack developer, comfortable across frontend,
+                backend, and applied machine learning.</li>
+              <li><span class="marker" aria-hidden="true">-></span> Secure a meaningful software development internship and keep
+                contributing to real-world projects.</li>
+              <li><span class="marker" aria-hidden="true">-></span> Stay curious about design and content creation alongside core
+                engineering work.</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- ============ SKILLS ============ -->
+        <section aria-labelledby="skills-heading" style="margin-top: var(--space-5);" class="reveal">
+          <div class="section-head" style="margin-bottom: var(--space-3);">
+            <p class="eyebrow">skills.json</p>
+            <h2 id="skills-heading">Technical Skills</h2>
+          </div>
+
+          <ul class="skills-grid">
+            <li class="skill-chip"><span aria-hidden="true">🌐</span><span><span class="tag">markup</span><strong>HTML</strong></span></li>
+            <li class="skill-chip"><span aria-hidden="true">🎨</span><span><span class="tag">styling</span><strong>CSS</strong></span></li>
+            <li class="skill-chip"><span aria-hidden="true">⚙️</span><span><span class="tag">scripting</span><strong>JavaScript</strong></span></li>
+            <li class="skill-chip"><span aria-hidden="true">☕</span><span><span class="tag">language</span><strong>Java</strong></span></li>
+            <li class="skill-chip"><span aria-hidden="true">🧠</span><span><span class="tag">core</span><strong>Data Structures &amp; Algorithms</strong></span></li>
+            <li class="skill-chip"><span aria-hidden="true">🐍</span><span><span class="tag">language</span><strong>Python</strong></span></li>
+            <li class="skill-chip"><span aria-hidden="true">🔧</span><span><span class="tag">tooling</span><strong>Git &amp; GitHub</strong></span></li>
+          </ul>
+        </section>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year">2026</span> Goutam Soni. Built with HTML, CSS &amp; JavaScript.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
