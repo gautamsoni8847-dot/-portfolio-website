@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Task Tracker | Goutam Soni</title>
+  <meta name="description" content="A client-side task tracker built with vanilla JavaScript, demonstrating DOM manipulation, state management, and localStorage persistence.">
+  <meta name="author" content="Goutam Soni">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="eyebrow">task3 / state-management</p>
+      <h1>Task Tracker</h1>
+      <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark and light theme">
+        <span class="icon" aria-hidden="true">🌙</span><span class="label">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="app-card">
+
+      <!-- ============ ADD TASK ============ -->
+      <form id="task-form" class="task-form" aria-labelledby="add-task-heading">
+        <h2 id="add-task-heading" class="visually-hidden">Add a new task</h2>
+        <div class="form-row">
+          <label for="task-input" class="visually-hidden">Task description</label>
+          <input
+            type="text"
+            id="task-input"
+            name="task"
+            placeholder="What do you need to do?"
+            autocomplete="off"
+            maxlength="200"
+            required
+          >
+          <button type="submit" class="btn btn-primary">
+            <span aria-hidden="true">+</span> Add
+          </button>
+        </div>
+        <p id="input-error" class="field-error" role="alert" hidden>Please enter a task before adding it.</p>
+      </form>
+
+      <!-- ============ CONTROLS: FILTERS + COUNTERS ============ -->
+      <div class="controls">
+        <div class="filters" role="group" aria-label="Filter tasks">
+          <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="filter-btn" data-filter="active" aria-pressed="false">Active</button>
+          <button type="button" class="filter-btn" data-filter="completed" aria-pressed="false">Completed</button>
+        </div>
+
+        <div class="counters" aria-label="Task counts">
+          <span class="counter"><strong id="count-total">0</strong> total</span>
+          <span class="counter"><strong id="count-active">0</strong> active</span>
+          <span class="counter"><strong id="count-completed">0</strong> completed</span>
+        </div>
+      </div>
+
+      <!-- ============ TASK LIST ============ -->
+      <ul id="task-list" class="task-list" aria-label="Tasks"></ul>
+
+      <p id="empty-state" class="empty-state" hidden>No tasks yet — add one above.</p>
+
+      <div class="list-footer">
+        <button type="button" id="clear-completed" class="btn btn-secondary btn-small">Clear completed</button>
+      </div>
+
+      <!-- Live region for transient status announcements (screen readers only) -->
+      <p id="status-announcer" class="visually-hidden" role="status" aria-live="polite"></p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Task 3 — JavaScript Logic &amp; State Management. Built with HTML, CSS &amp; vanilla JavaScript.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
