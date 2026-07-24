@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Weather Dashboard | Goutam Soni</title>
+  <meta name="description" content="A real-time weather dashboard built with vanilla JavaScript, the Fetch API, async/await, and the Open-Meteo REST API.">
+  <meta name="author" content="Goutam Soni">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">task4 / async-js-rest-apis</p>
+        <h1>Weather Dashboard</h1>
+      </div>
+      <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark and light theme">
+        <span class="icon" aria-hidden="true">🌙</span><span class="label">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="app-card">
+
+      <!-- ============ SEARCH ============ -->
+      <form id="search-form" class="search-form" aria-labelledby="search-heading">
+        <h2 id="search-heading" class="visually-hidden">Search for a city's weather</h2>
+        <div class="form-row">
+          <label for="city-input" class="visually-hidden">City name</label>
+          <input
+            type="text"
+            id="city-input"
+            name="city"
+            placeholder="Enter a city name (e.g. Bhubaneswar)"
+            autocomplete="off"
+            required
+          >
+          <button type="submit" class="btn btn-primary">
+            <span aria-hidden="true">🔍</span> Search
+          </button>
+        </div>
+        <p id="input-error" class="field-error" role="alert" hidden>Please enter a city name before searching.</p>
+      </form>
+
+      <!-- Live region for status announcements (screen readers) -->
+      <p id="status-announcer" class="visually-hidden" role="status" aria-live="polite"></p>
+
+      <!-- ============ LOADING STATE ============ -->
+      <div id="loading-state" class="loading-state" hidden>
+        <span class="spinner" aria-hidden="true"></span>
+        <p>Fetching live weather data…</p>
+      </div>
+
+      <!-- ============ ERROR STATE ============ -->
+      <div id="error-state" class="error-state" role="alert" hidden></div>
+
+      <!-- ============ WEATHER RESULT (static skeleton, filled dynamically by JS) ============ -->
+      <section id="weather-result" class="weather-result" hidden aria-labelledby="city-name">
+
+        <div class="location-row">
+          <div class="location-info">
+            <h2 id="city-name"></h2>
+            <p id="region-country" class="text-muted"></p>
+            <p id="local-time" class="text-muted small"></p>
+          </div>
+          <div class="condition-badge">
+            <span id="weather-icon" class="weather-icon" aria-hidden="true"></span>
+            <span id="weather-condition" class="condition-text"></span>
+          </div>
+        </div>
+
+        <div class="temp-row">
+          <span id="current-temp" class="current-temp"></span>
+          <span id="feels-like" class="text-muted"></span>
+        </div>
+
+        <div class="details-grid">
+          <div class="detail-card">
+            <span class="detail-label">Humidity</span>
+            <span id="detail-humidity" class="detail-value"></span>
+          </div>
+          <div class="detail-card">
+            <span class="detail-label">Wind Speed</span>
+            <span id="detail-wind" class="detail-value"></span>
+          </div>
+          <div class="detail-card">
+            <span class="detail-label">Pressure</span>
+            <span id="detail-pressure" class="detail-value"></span>
+          </div>
+          <div class="detail-card">
+            <span class="detail-label">Visibility</span>
+            <span id="detail-visibility" class="detail-value"></span>
+          </div>
+          <div class="detail-card">
+            <span class="detail-label">Min Temp</span>
+            <span id="detail-min" class="detail-value"></span>
+          </div>
+          <div class="detail-card">
+            <span class="detail-label">Max Temp</span>
+            <span id="detail-max" class="detail-value"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ EMPTY / INITIAL STATE ============ -->
+      <p id="empty-state" class="empty-state">Search for a city above to see its current weather.</p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>Task 4 — Asynchronous JavaScript &amp; RESTful APIs. Weather data from <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
