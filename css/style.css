@@ -1,9 +1,14 @@
 /* =====================================================================
-   Goutam Soni — Portfolio Stylesheet (v2 — modern glass / gradient-mesh)
-   Design language: dark glass surfaces over an animated gradient mesh,
-   expressive variable display type, a floating pill navbar, spotlight
-   hover on cards, and a bento-style project grid. The mono/terminal
-   thread from v1 is kept as a restrained accent, not the whole story.
+   Goutam Soni — Portfolio Stylesheet (v3 — Task 2: mobile-first,
+   Grid/Flexbox architecture, expanded theme tokens)
+   Visual identity unchanged from v2 (glass surfaces, gradient mesh,
+   spotlight hover, bento project grid). This pass:
+   - rebuilds the responsive system mobile-first (min-width queries)
+   - adds reusable card-color and shadow custom properties
+   - fixes a bug where card surfaces (.info-card, .project-card,
+     .skill-chip, .contact-form, .contact-aside, .terminal) were
+     missing their background/border because the .glass utility they
+     depended on was never applied to them
    ===================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
@@ -15,6 +20,7 @@
   --color-bg: #0A0B0F;
   --color-surface: rgba(255,255,255,0.045);
   --color-surface-solid: #14161D;
+  --color-card: rgba(255,255,255,0.05);
   --color-border: rgba(255,255,255,0.10);
   --color-text: #F2F3F8;
   --color-text-muted: #9AA1B5;
@@ -24,6 +30,14 @@
   --accent-pink: #F472B6;
   --accent-contrast: #0A0B0F;
   --gradient-brand: linear-gradient(120deg, var(--accent-violet), var(--accent-cyan));
+
+  /* Elevation shadows (neutral) */
+  --shadow-sm: 0 8px 24px -8px rgba(0,0,0,0.45);
+  --shadow-md: 0 12px 32px -10px rgba(0,0,0,0.5);
+  --shadow-lg: 0 30px 70px -30px rgba(0,0,0,0.6);
+  /* Brand-tinted glow shadows (used for primary CTA + avatar ring) */
+  --shadow-glow: 0 8px 24px -8px color-mix(in srgb, var(--accent-violet) 70%, transparent);
+  --shadow-glow-strong: 0 12px 32px -8px color-mix(in srgb, var(--accent-violet) 85%, transparent);
 
   --font-display: 'Bricolage Grotesque', 'Space Grotesk', sans-serif;
   --font-body: 'Inter', 'Segoe UI', sans-serif;
@@ -52,6 +66,7 @@
   --color-bg: #F3F4F8;
   --color-surface: rgba(255,255,255,0.65);
   --color-surface-solid: #FFFFFF;
+  --color-card: rgba(255,255,255,0.72);
   --color-border: rgba(15,17,23,0.10);
   --color-text: #14161D;
   --color-text-muted: #565D74;
@@ -60,13 +75,23 @@
   --accent-cyan: #0EA5B7;
   --accent-pink: #C2417B;
   --accent-contrast: #FFFFFF;
+
+  --shadow-sm: 0 8px 24px -8px rgba(20,22,29,0.12);
+  --shadow-md: 0 12px 32px -10px rgba(20,22,29,0.15);
+  --shadow-lg: 0 30px 70px -30px rgba(20,22,29,0.18);
 }
 
 /* ---------------------------------------------------------------------
-   2. RESET & BASE
+   2. RESET & BASE (mobile-first: these are the default, smallest-screen
+      styles; every layout override below adds capability at wider
+      viewports via min-width media queries, never removes it)
    --------------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+/* Belt-and-suspenders guard against accidental horizontal scroll on
+   small screens (blurred background blobs, wide flex rows, etc). */
+html, body { overflow-x: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -91,8 +116,7 @@ body {
   position: relative;
 }
 
-/* Animated gradient-mesh backdrop — the page's ambient signature.
-   Two soft, slowly-drifting blobs sit fixed behind all content. */
+/* Animated gradient-mesh backdrop */
 body::before,
 body::after {
   content: "";
@@ -146,15 +170,15 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em;
 }
 h1 {
-  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-size: clamp(2.1rem, 8vw, 4.2rem);
   background: var(--gradient-brand);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   display: inline-block;
 }
-h2 { font-size: clamp(1.7rem, 3.6vw, 2.5rem); }
-h3 { font-size: clamp(1.15rem, 2vw, 1.4rem); }
+h2 { font-size: clamp(1.5rem, 4.5vw, 2.5rem); }
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); }
 p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 
 :focus-visible {
@@ -195,17 +219,23 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 }
 .eyebrow::before { content: ">"; opacity: 0.8; }
 
-/* Reusable glass-surface mixin, applied via multiple classes below */
-.glass {
-  background: var(--color-surface);
+/* Shared card-surface treatment — applied directly to every card-like
+   component so they actually render with a visible glass panel
+   (background / border / blur), using the --color-card token. */
+.info-card,
+.project-card,
+.skill-chip,
+.contact-form,
+.contact-aside,
+.terminal {
+  background: var(--color-card);
   border: 1px solid var(--color-border);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
 
-/* Spotlight hover — a soft glow that follows the cursor, applied to
-   any element carrying data-spotlight (set on cards via JS querying
-   existing class names, so no HTML changes are required). */
+/* Spotlight hover — soft glow that follows the cursor (JS sets
+   data-spotlight + --spot-x/--spot-y on the elements above). */
 [data-spotlight] { position: relative; overflow: hidden; }
 [data-spotlight]::before {
   content: "";
@@ -221,7 +251,10 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 [data-spotlight]:focus-within::before { opacity: 1; }
 
 /* ---------------------------------------------------------------------
-   3. HEADER & NAVIGATION — floating glass pill
+   3. HEADER & NAVIGATION — mobile-first
+      Base (mobile): hamburger toggle visible, links collapse into a
+      dropdown panel. From 768px (tablet) up: hamburger hides and the
+      full link row displays inline in the pill navbar.
    --------------------------------------------------------------------- */
 .site-header {
   position: sticky;
@@ -242,7 +275,8 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
   border: 1px solid var(--color-border);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
-  box-shadow: 0 10px 35px -12px rgba(0,0,0,0.45);
+  box-shadow: var(--shadow-sm);
+  position: relative; /* anchors the mobile dropdown below */
 }
 
 .logo {
@@ -262,8 +296,11 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 }
 @keyframes blink { 50% { opacity: 0; } }
 
+/* Mobile base: hamburger visible */
 .nav-toggle {
-  display: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -274,17 +311,36 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
   font-size: 1.1rem;
 }
 
+/* Mobile base: links collapse into a dropdown panel under the pill */
 .nav-links {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: var(--space-2);
+  right: var(--space-2);
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-solid);
+  border: 1px solid var(--color-border);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition);
+}
+.nav-links.is-open { max-height: 420px; }
+.nav-links a,
+.nav-links .theme-toggle {
+  width: 100%;
+  border-radius: 0;
+  padding: 0.9rem var(--space-2);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .nav-links a {
   font-family: var(--font-mono);
   font-size: 0.88rem;
   color: var(--color-text-muted);
-  padding: 0.4rem 0.2rem;
   position: relative;
   transition: color var(--transition);
 }
@@ -299,8 +355,6 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
   background: color-mix(in srgb, var(--color-text) 6%, transparent);
   border: 1px solid var(--color-border);
   color: var(--color-text);
-  padding: 0.45rem 0.85rem;
-  border-radius: 999px;
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: 0.82rem;
@@ -308,6 +362,30 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 }
 .theme-toggle:hover { border-color: var(--accent-cyan); }
 .theme-toggle:active { transform: scale(0.96); }
+
+/* Tablet and up (768px+): full inline nav, hamburger hidden */
+@media (min-width: 768px) {
+  .nav-toggle { display: none; }
+
+  .nav-links {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-3);
+    background: none;
+    border: none;
+    max-height: none;
+    overflow: visible;
+  }
+  .nav-links a,
+  .nav-links .theme-toggle {
+    width: auto;
+    border-radius: 999px;
+    padding: 0.45rem 0.85rem;
+    border-bottom: none;
+  }
+  .nav-links a { padding: 0.4rem 0.2rem; }
+}
 
 /* ---------------------------------------------------------------------
    4. BUTTONS
@@ -330,11 +408,9 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 .btn-primary {
   background: var(--gradient-brand);
   color: #0A0B0F;
-  box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--accent-violet) 70%, transparent);
+  box-shadow: var(--shadow-glow);
 }
-.btn-primary:hover {
-  box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--accent-violet) 85%, transparent);
-}
+.btn-primary:hover { box-shadow: var(--shadow-glow-strong); }
 
 .btn-secondary {
   background: var(--color-surface);
@@ -347,14 +423,16 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 .btn-block { width: 100%; justify-content: center; }
 
 /* ---------------------------------------------------------------------
-   5. HERO
+   5. HERO — mobile-first
+      Base (mobile/tablet, up to 1023px): single column, stacked;
+      terminal card shown visually first (order:-1), text below.
+      Desktop (1024px+): two-column grid, terminal on the right.
    --------------------------------------------------------------------- */
-.hero { padding-block: var(--space-6) var(--space-5); }
+.hero { padding-block: var(--space-5) var(--space-4); }
 .hero .container {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: var(--space-5);
-  align-items: center;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
 }
 
 .hero-copy { animation: fadeUp 700ms var(--ease) both; }
@@ -374,9 +452,10 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 }
 
 .terminal {
+  order: -1;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 30px 70px -30px rgba(0,0,0,0.6);
+  box-shadow: var(--shadow-lg);
   animation: fadeUp 700ms 150ms var(--ease) both;
 }
 .terminal-bar {
@@ -392,7 +471,7 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 .terminal-bar span:nth-child(2) { background: #F2C94C; }
 .terminal-bar span:nth-child(3) { background: var(--accent-cyan); }
 .terminal-title { margin-left: 0.5rem; font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-text-muted); }
-.terminal-body { padding: var(--space-3); font-family: var(--font-mono); font-size: 0.92rem; min-height: 220px; }
+.terminal-body { padding: var(--space-3); font-family: var(--font-mono); font-size: 0.88rem; min-height: 200px; }
 .terminal-body .line { margin-bottom: 0.6rem; }
 .terminal-body .prompt { color: var(--accent-cyan); margin-right: 0.5rem; }
 .terminal-body .out { color: var(--color-text); }
@@ -403,9 +482,13 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 }
 
 .profile-frame {
-  width: 96px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  padding: 4px;
+  background: var(--gradient-brand);
+  box-shadow: var(--shadow-glow);
   margin-bottom: var(--space-3);
 }
 
@@ -414,10 +497,23 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Desktop (1024px+): two-column hero, larger avatar, more vertical room */
+@media (min-width: 1024px) {
+  .hero { padding-block: var(--space-6) var(--space-5); }
+  .hero .container {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+  .terminal { order: 0; }
+  .terminal-body { font-size: 0.92rem; min-height: 220px; }
+  .profile-frame { width: 140px; height: 140px; }
+}
+
 /* ---------------------------------------------------------------------
    6. SECTIONS
    --------------------------------------------------------------------- */
-.section { padding-block: var(--space-5); }
+.section { padding-block: var(--space-4); }
 .section-head { margin-bottom: var(--space-4); max-width: 60ch; }
 .section-alt {
   background: color-mix(in srgb, var(--color-text) 3%, transparent);
@@ -427,8 +523,15 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity 600ms var(--ease), transform 600ms var(--ease); }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
+@media (min-width: 1024px) {
+  .section { padding-block: var(--space-5); }
+}
+
 /* ---------------------------------------------------------------------
    7. ABOUT PAGE — bento layout
+      auto-fit/minmax already collapses to a single column below
+      ~260px per card, so this is inherently mobile-first responsive
+      with no extra breakpoints required.
    --------------------------------------------------------------------- */
 .about-grid {
   display: grid;
@@ -445,7 +548,7 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: var(--space-2);
   margin-top: var(--space-3);
 }
@@ -466,15 +569,17 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 .goals-list .marker { font-family: var(--font-mono); color: var(--accent-cyan); }
 
 /* ---------------------------------------------------------------------
-   8. PROJECTS PAGE — bento grid (first card featured/larger)
+   8. PROJECTS PAGE — mobile-first bento grid
+      Base (mobile): one card per row.
+      Tablet (768px+): natural multi-column reflow via auto-fit.
+      Desktop (1024px+): first card becomes a featured, double-width
+      bento tile.
    --------------------------------------------------------------------- */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: var(--space-3);
 }
-.project-card:nth-child(1) { grid-column: span 2; }
-.project-card:nth-child(1) .thumb { aspect-ratio: 21 / 9; }
 
 .project-card {
   border-radius: var(--radius-lg);
@@ -500,15 +605,21 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 }
 .project-card .card-footer { margin-top: auto; }
 
-@media (max-width: 900px) {
-  .project-card:nth-child(1) { grid-column: auto; }
-  .project-card:nth-child(1) .thumb { aspect-ratio: 16 / 10; }
+@media (min-width: 768px) {
+  .project-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .project-card:nth-child(1) { grid-column: span 2; }
+  .project-card:nth-child(1) .thumb { aspect-ratio: 21 / 9; }
 }
 
 /* ---------------------------------------------------------------------
-   9. CONTACT PAGE
+   9. CONTACT PAGE — mobile-first
+      Base (mobile/tablet, up to 1023px): stacked, form above socials.
+      Desktop (1024px+): two-column layout.
    --------------------------------------------------------------------- */
-.contact-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-4); align-items: start; }
+.contact-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-3); }
 
 .contact-form { border-radius: var(--radius-lg); padding: var(--space-3); display: grid; gap: var(--space-2); }
 
@@ -523,7 +634,7 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
   padding: 0.8rem 0.9rem;
   color: var(--color-text);
   font-family: var(--font-body);
-  font-size: 0.98rem;
+  font-size: 1rem; /* 16px prevents iOS auto-zoom on focus */
   transition: border-color var(--transition);
 }
 .form-field input:focus, .form-field textarea:focus { border-color: var(--accent-cyan); outline: none; }
@@ -555,6 +666,10 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 .social-list a:hover { border-color: var(--accent-cyan); background: color-mix(in srgb, var(--color-text) 5%, transparent); }
 .social-list .icon { font-family: var(--font-mono); color: var(--accent-cyan); }
 
+@media (min-width: 1024px) {
+  .contact-layout { grid-template-columns: 1.2fr 0.8fr; gap: var(--space-4); align-items: start; }
+}
+
 /* ---------------------------------------------------------------------
    10. FOOTER
    --------------------------------------------------------------------- */
@@ -568,44 +683,13 @@ p { margin: 0 0 var(--space-2); color: var(--color-text-muted); }
 .footer-links a:hover { color: var(--accent-cyan); }
 
 /* ---------------------------------------------------------------------
-   11. RESPONSIVE
+   11. LARGE DESKTOP (1440px+)
+       Give the layout a little more breathing room on very wide
+       screens rather than letting content stretch edge to edge.
    --------------------------------------------------------------------- */
-@media (max-width: 900px) {
-  .hero .container { grid-template-columns: 1fr; }
-  .contact-layout { grid-template-columns: 1fr; }
-  .terminal { order: -1; }
-}
-
-@media (max-width: 720px) {
-  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
-
-  .nav-links {
-    position: absolute;
-    top: calc(100% + 0.6rem);
-    left: var(--space-2);
-    right: var(--space-2);
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    border-radius: var(--radius-md);
-    background: var(--color-surface-solid);
-    border: 1px solid var(--color-border);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height var(--transition);
+@media (min-width: 1440px) {
+  :root {
+    --max-width: 1320px;
+    --space-6: 7rem;
   }
-  .nav-links.is-open { max-height: 420px; }
-  .nav-links a, .nav-links .theme-toggle {
-    width: 100%;
-    border-radius: 0;
-    padding: 0.9rem var(--space-2);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .hero { padding-block: var(--space-4) var(--space-4); }
-}
-
-@media (max-width: 480px) {
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .about-grid, .project-grid { grid-template-columns: 1fr; }
 }
